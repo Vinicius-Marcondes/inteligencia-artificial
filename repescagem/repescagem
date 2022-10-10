@@ -1,0 +1,48 @@
+a) Melhor estratégia seria a busca heuristica.
+b) Busca A*, para evitar tentativas de soluções que ja se mostraram inválidas our muito custosas.
+c) Estado inicial: uma matriz com os numeros iniciais definidos aleatoriamente e diversos campos a serem preenchidos.
+   Estado final: Verificar se nao há repetição de numeros em linhas, colunas ou diagonais
+      def teste_objetico(estado_atual: List[List[int]]):
+		coluna: List[int] = []
+
+		if len(estado_atual) != 9:
+		    return False
+
+		for x in estado_atual:
+		    numero_elementos_por_coluna = len(x)
+		    elementos_nao_duplicados = set(x)
+		    if numero_elementos_por_coluna != len(elementos_nao_duplicados) or numero_elementos_por_coluna != 9:
+		        return False
+
+		    coluna.append(x[0])
+
+		coluna_set = set(coluna)
+		if len(coluna) != len(coluna_set):
+		    return False
+
+		i = 0
+		diagonal_1 = []
+		diagonal_2 = []
+		while i <= 9:
+		    diagonal_1.append(estado_atual[i][i])
+		    i = i + 1
+
+		i = 9
+		while i >= 0:
+		    diagonal_2.append(estado_atual[i][i])
+
+		set_diagonal_1 = set(diagonal_1)
+		set_diagonal_2 = set(diagonal_2)
+
+		if len(set_diagonal_2) != len(diagonal_2) or len(set_diagonal_1) != len(diagonal_1):
+		    return False
+
+		return True
+		
+	Ações: colocar numero de 0-9
+	Funcao SUcessora: Pegar 9 casas, verificar quais numeros estao preenchidos e gerar as opções com base nos numeros restantes.
+	FUncao de custo: analisar quantas tentativas foram feitas
+		def f(x):
+			return x + 1
+
+
